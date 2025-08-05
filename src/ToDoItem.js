@@ -4,12 +4,15 @@ export default class ToDoItem {
   #_dueDate;
   #_priority;
   #_status;
-  constructor(title, description = null, dueDate = null, priority = 3) {
+  #_project;
+
+  constructor(title, description = null, dueDate = null, priority = 3, project = null) {
     this.#_title = title;
     this.#_description = description;
     this.#_dueDate = dueDate;
     this.#_priority = priority;
     this.#_status = "open";
+    this.#_project = project;
   }
 
   get title() {
@@ -30,6 +33,9 @@ export default class ToDoItem {
 
   get status() {
     return this.#_status;
+  }
+  get project() {
+    return this.#_project;
   }
 
   set title(title) {
@@ -58,5 +64,9 @@ export default class ToDoItem {
     } else {
       console.log("Invalid status value.")
     }
+  }
+
+  set project(project) {
+    this.#_project = project;
   }
 }
