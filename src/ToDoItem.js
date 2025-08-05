@@ -1,47 +1,52 @@
-class ToDoItem {
+export default class ToDoItem {
+  #_title;
+  #_description;
+  #_dueDate;
+  #_priority;
+  #_status;
   constructor(title, description = null, dueDate = null, priority = 3) {
-    this.title = title;
-    this.description = description;
-    this.dueDate = dueDate;
-    this.priority = priority;
-    this.status = "open";
+    this.#_title = title;
+    this.#_description = description;
+    this.#_dueDate = dueDate;
+    this.#_priority = priority;
+    this.#_status = "open";
   }
 
   get title() {
-    return this.title;
+    return this.#_title;
   }
 
   get description() {
-    return this.description;
+    return this.#_description;
   }
 
   get dueDate() {
-    return this.dueDate;
+    return this.#_dueDate;
   }
 
   get priority() {
-    return this.priority;
+    return this.#_priority;
   }
 
   get status() {
-    return this.status;
+    return this.#_status;
   }
 
   set title(title) {
-    this.title = title;
+    this.#_title = title;
   }
 
   set description(description) {
-    this.description = description;
+    this.#_description = description;
   }
 
   set dueDate(dueDate) {
-    this.dueDate = dueDate;
+    this.#_dueDate = dueDate;
   }
 
-  set priority(priority) {
-    if (priority >= 0 && priority <= 5) {
-      this.priority = priority;
+  set priority(piority) {
+    if (piority >= 0 && piority <= 5) {
+      this.#_priority = piority;
     } else {
       console.log("Invalid priority value.")
     }
@@ -49,10 +54,9 @@ class ToDoItem {
 
   set status(status) {
     if (status === "open" || status === "closed") {
-      this.status = status;
+      this.#_status = status;
     } else {
       console.log("Invalid status value.")
     }
   }
 }
-
