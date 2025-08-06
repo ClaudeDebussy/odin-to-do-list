@@ -69,8 +69,31 @@ html {
   padding: 1rem;
 }
 
-.sidebar-area h1 {
+.sidebar-area .sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   margin-bottom: 1.5rem;
+
+}
+
+.sidebar-area .sidebar-header .close-sidebar-button {
+  font-size: 2rem;
+  font-weight: bold;
+  border: none;
+  width: 3rem;
+  background-color: var(--todo-dark-pink);
+  border-radius: 1rem;
+}
+
+.sidebar-area .sidebar-header .close-sidebar-button:hover {
+  background-color: var(--todo-blue);
+  color: var(--todo-light-pink);
+}
+
+.sidebar-area .sidebar-header .close-sidebar-button:active {
+  background-color: var(--todo-black);
+  color: var(--todo-light-pink);
 }
 
 .sidebar-area .form-row {

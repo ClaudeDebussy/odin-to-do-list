@@ -1,9 +1,19 @@
 export default class Display {
 
-  createHeader() {
+  createBodyStructure() {
     const content = document.createElement("div");
     content.setAttribute("class", "content");
 
+    this.createHeader();
+
+    const mainArea = document.createElement("div");
+    mainArea.setAttribute("class", "main-area");
+
+    const tasksArea = document.createElement("div");
+    tasksArea.setAttribute("class", "tasks-area");
+  }
+  
+  createHeader() {
     const header = document.createElement("div");
     header.setAttribute("class", "header");
 
@@ -18,5 +28,10 @@ export default class Display {
     content.appendChild(header);
     header.appendChild(headerButtonGroup);
     headerButtonGroup.appendChild(newToDoItemButton);
+  }
+
+  createSidebar() {    
+    const mainArea = document.querySelector(".main-area");
+    mainArea.setAttribute("class", "side-bar-open"); // hard-coded for now
   }
 }
