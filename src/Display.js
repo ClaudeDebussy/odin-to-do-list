@@ -2,18 +2,18 @@ export default class Display {
 
   createBodyStructure() {
     const content = document.createElement("div");
-    content.setAttribute("class", "content");
+    content.classList.add("content");
     document.body.appendChild(content);
 
     this.createHeader();
 
     const mainArea = document.createElement("div");
-    mainArea.setAttribute("class", "main-area");
-    document.body.appendChild(mainArea);
+    mainArea.classList.add("main-area");
+    content.appendChild(mainArea);
 
     const tasksArea = document.createElement("div");
-    tasksArea.setAttribute("class", "tasks-area");
-    document.body.appendChild(tasksArea);
+    tasksArea.classList.add("tasks-area");
+    mainArea.appendChild(tasksArea);
 
     this.createSidebar();
   }
@@ -22,13 +22,13 @@ export default class Display {
     const content = document.querySelector(".content");
     
     const header = document.createElement("div");
-    header.setAttribute("class", "header");
+    header.classList.add("header");
 
     const headerButtonGroup = document.createElement("div");
-    headerButtonGroup.setAttribute("class", "header-button-group");
+    headerButtonGroup.classList.add("header-button-group");
 
     const newToDoItemButton = document.createElement("button");
-    newToDoItemButton.setAttribute("class", "header-button");
+    newToDoItemButton.classList.add("header-button");
     newToDoItemButton.textContent = "Create new task";
     
     content.appendChild(header);
@@ -40,31 +40,31 @@ export default class Display {
     
     function createFormRow() {
       const formRow = document.createElement("div");
-      formRow.setAttribute("class", "form-row");
+      formRow.classList.add("form-row");
       return formRow
     };
     
     const mainArea = document.querySelector(".main-area");
-    mainArea.setAttribute("class", "side-bar-open"); // hard-coded for now
+    mainArea.classList.add("sidebar-open"); // hard-coded for now
 
     const sidebarArea = document.createElement("div");
-    sidebarArea.setAttribute("class", "sidebar-area");
+    sidebarArea.classList.add("sidebar-area");
     mainArea.appendChild(sidebarArea);
 
     const sidebarHeader = document.createElement("div");
-    sidebarHeader.setAttribute("class", "sidebar-header");
+    sidebarHeader.classList.add("sidebar-header");
     sidebarArea.appendChild(sidebarHeader);
 
     const sidebarHeaderH1 = document.createElement("h1");
-    sidebarHeaderH1.setAttribute("class", "sidebar-header-title");
+    sidebarHeaderH1.classList.add("sidebar-header-title");
     sidebarHeader.appendChild(sidebarHeaderH1);
 
     const closeSidebarButton = document.createElement("button");
-    closeSidebarButton.setAttribute("class", "close-sidebar-button");
+    closeSidebarButton.classList.add("close-sidebar-button");
     sidebarHeader.appendChild(closeSidebarButton);
 
     const newToDoItemForm = document.createElement("form");
-    newToDoItemForm.setAttribute("class", "new-to-do-item-form");
+    newToDoItemForm.classList.add("new-to-do-item-form");
     sidebarArea.appendChild(newToDoItemForm);
 
     
@@ -127,15 +127,17 @@ export default class Display {
     formPrioritySelect.setAttribute("id", "priority");
     for (let i = 1; i < 6; i++) {
       let option = document.createElement("option");
+      option.setAttribute("value", `${i}`);
       if (i === 1) {
-        option.setAttribute("value", `${i} (lowest)`)
+        option.textContent = `${i} (lowest)`;
       } else if (i === 3) {
         option.setAttribute("selected", "selected");
+        option.textContent = `${i}`        
       } else if (i === 5) {
-        option.setAttribute("value", `${i} (highest)`)
+        option.textContent = `${i} (highest)`;
       } else {
-        option.setAttribute("value", `${i}`)
-      };
+        option.textContent = i;
+      };      
       formPrioritySelect.appendChild(option);
     }
     formRowPriority.appendChild(formPrioritySelect);
