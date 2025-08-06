@@ -3,17 +3,24 @@ export default class Display {
   createBodyStructure() {
     const content = document.createElement("div");
     content.setAttribute("class", "content");
+    document.body.appendChild(content);
 
     this.createHeader();
 
     const mainArea = document.createElement("div");
     mainArea.setAttribute("class", "main-area");
+    document.body.appendChild(mainArea);
 
     const tasksArea = document.createElement("div");
     tasksArea.setAttribute("class", "tasks-area");
+    document.body.appendChild(tasksArea);
+
+    this.createSidebar();
   }
   
   createHeader() {
+    const content = document.querySelector(".content");
+    
     const header = document.createElement("div");
     header.setAttribute("class", "header");
 
@@ -23,15 +30,129 @@ export default class Display {
     const newToDoItemButton = document.createElement("button");
     newToDoItemButton.setAttribute("class", "header-button");
     newToDoItemButton.textContent = "Create new task";
-
-    document.body.appendChild(content);
+    
     content.appendChild(header);
     header.appendChild(headerButtonGroup);
     headerButtonGroup.appendChild(newToDoItemButton);
-  }
+  }  
 
   createSidebar() {    
+    
+    function createFormRow() {
+      const formRow = document.createElement("div");
+      formRow.setAttribute("class", "form-row");
+      return formRow
+    };
+    
     const mainArea = document.querySelector(".main-area");
     mainArea.setAttribute("class", "side-bar-open"); // hard-coded for now
+
+    const sidebarArea = document.createElement("div");
+    sidebarArea.setAttribute("class", "sidebar-area");
+    mainArea.appendChild(sidebarArea);
+
+    const sidebarHeader = document.createElement("div");
+    sidebarHeader.setAttribute("class", "sidebar-header");
+    sidebarArea.appendChild(sidebarHeader);
+
+    const sidebarHeaderH1 = document.createElement("h1");
+    sidebarHeaderH1.setAttribute("class", "sidebar-header-title");
+    sidebarHeader.appendChild(sidebarHeaderH1);
+
+    const closeSidebarButton = document.createElement("button");
+    closeSidebarButton.setAttribute("class", "close-sidebar-button");
+    sidebarHeader.appendChild(closeSidebarButton);
+
+    const newToDoItemForm = document.createElement("form");
+    newToDoItemForm.setAttribute("class", "new-to-do-item-form");
+    sidebarArea.appendChild(newToDoItemForm);
+
+    
+    const formRowTitle = createFormRow();
+    const formRowDescription = createFormRow();
+    const formRowDueDate = createFormRow();
+    const formRowPriority = createFormRow();
+    const formRowProject = createFormRow();
+
+    sidebarArea.appendChild(formRowTitle);
+    sidebarArea.appendChild(formRowDescription);
+    sidebarArea.appendChild(formRowDueDate);
+    sidebarArea.appendChild(formRowPriority);
+    sidebarArea.appendChild(formRowProject);
+
+    const formTitleLabel = document.createElement("label");
+    formTitleLabel.setAttribute("for","title");
+    formTitleLabel.textContent = "Title";
+    formRowTitle.appendChild(formTitleLabel);
+
+    const formTitleInput = document.createElement("input");
+    formTitleInput.setAttribute("type", "text");
+    formTitleInput.setAttribute("name", "title");
+    formTitleInput.setAttribute("id", "title");
+    formRowTitle.appendChild(formTitleInput);
+
+
+    const formDescriptionLabel = document.createElement("label");
+    formDescriptionLabel.setAttribute("for", "description");
+    formDescriptionLabel.textContent = "Description";
+    formRowDescription.appendChild(formDescriptionLabel);
+
+    const formDescriptionInput = document.createElement("textarea");
+    formDescriptionInput.setAttribute("name", "description");
+    formDescriptionInput.setAttribute("id", "description");
+    formRowDescription.appendChild(formDescriptionInput);
+
+
+    const formDueDateLabel = document.createElement("label");
+    formDueDateLabel.setAttribute("for", "due-date");
+    formDueDateLabel.textContent = "Due date";
+    formRowDueDate.appendChild(formDueDateLabel);
+
+    const formDueDateInput = document.createElement("input");
+    formDueDateInput.setAttribute("type","date");
+    formDueDateInput.setAttribute("id","due-date");
+    formDueDateInput.setAttribute("name","dueDate");
+    formDueDateInput.setAttribute("value","2025-08-06"); // hard coded
+    formDueDateInput.setAttribute("min","2025-08-06"); //hard coded
+    formRowDueDate.appendChild(formDueDateInput);
+
+
+    const formPriorityLabel = document.createElement("label");
+    formPriorityLabel.setAttribute("for", "priority");
+    formPriorityLabel.textContent = "Priority";
+    formRowPriority.appendChild(formPriorityLabel);
+
+    const formPrioritySelect = document.createElement("select");
+    formPrioritySelect.setAttribute("name", "priority");
+    formPrioritySelect.setAttribute("id", "priority");
+    for (let i = 1; i < 6; i++) {
+      let option = document.createElement("option");
+      if (i === 1) {
+        option.setAttribute("value", `${i} (lowest)`)
+      } else if (i === 3) {
+        option.setAttribute("selected", "selected");
+      } else if (i === 5) {
+        option.setAttribute("value", `${i} (highest)`)
+      } else {
+        option.setAttribute("value", `${i}`)
+      };
+      formPrioritySelect.appendChild(option);
+    }
+    formRowPriority.appendChild(formPrioritySelect);
+
+
+    const formProjectLabel = document.createElement("label");
+    formProjectLabel.setAttribute("for", "project");
+    formProjectLabel.textContent = "Priority";
+    formRowProject.appendChild(formProjectLabel);
+
+    const formProjectSelect = document.createElement("select")
+    formProjectSelect.setAttribute("name", "project");
+    formProjectSelect.setAttribute("id", "project");
+    const forProjectSelectOption = document.createElement("option");
+    forProjectSelectOption.setAttribute("value", "null"); // hard-coded
+    forProjectSelectOption.textContent = "none"
+    formProjectSelect.appendChild(forProjectSelectOption);
+    formRowProject.appendChild(formProjectSelect);
   }
 }

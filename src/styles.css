@@ -126,12 +126,6 @@ html {
   resize: none;
 }
 
-.sidebar-area .form-row .instructions {
-  color: var(--todo-blue);
-  font-size: 1rem;
-  font-style: italic;
-}
-
 .sidebar-area .form-row ::-webkit-datetime-edit { 
   padding: .5em;
   font-size: 1rem;
