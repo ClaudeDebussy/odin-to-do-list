@@ -7,4 +7,4 @@ let makeCoffee = new ToDoItem("Make coffee", "Make some coffee");
 console.log(makeCoffee);
 
 const page = new Display;
-page.createHeader();
+// page.createHeader();

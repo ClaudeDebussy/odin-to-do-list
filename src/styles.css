@@ -47,3 +47,81 @@ html {
   background-color: var(--todo-black);
   color: var(--todo-light-pink);
 }
+
+.main-area.sidebar-open {
+  display: grid;
+  grid-template-areas: 
+  "tasks-area sidebar-area";
+  grid-template-columns: 2fr 1fr;
+  width: 100vw;
+  min-height: 100vh;
+}
+
+.tasks-area {
+  grid-area: tasks-area;
+  background-color: var(--todo-light-pink);
+}
+
+.sidebar-area {
+  grid-area: sidebar-area;
+  background-color: var(--todo-dark-pink);
+
+  padding: 1rem;
+}
+
+.sidebar-area h1 {
+  margin-bottom: 1.5rem;
+}
+
+.sidebar-area .form-row {
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.sidebar-area .form-row input[type='text'] {
+  background-color: var(--todo-white);
+  border: 1px solid #D6D9DC;
+  border-radius: 3px;
+  width: 100%;
+  padding: .5rem;
+  font-size: 1rem;
+}
+
+.sidebar-area .form-row label {
+  margin-bottom: .25rem;
+}
+
+.sidebar-area .form-row textarea {
+  font-size: 1rem;
+  border: 1px solid #D6D9DC;
+  border-radius: 3px;
+  min-height: 10rem;
+  padding: .5rem;
+  resize: none;
+}
+
+.sidebar-area .form-row .instructions {
+  color: var(--todo-blue);
+  font-size: 1rem;
+  font-style: italic;
+}
+
+.sidebar-area .form-row ::-webkit-datetime-edit { 
+  padding: .5em;
+  font-size: 1rem;
+  width: auto;
+}
+
+.sidebar-area .form-row ::-webkit-calendar-picker-indicator {
+  width: 2rem;
+  height: 2rem;
+}
+
+.sidebar-area .form-row select {
+  width: 100%;
+  padding: .5rem;
+  font-size: 1rem;
+}
