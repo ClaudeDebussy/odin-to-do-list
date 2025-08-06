@@ -30,6 +30,25 @@ export default class Display {
     const newToDoItemButton = document.createElement("button");
     newToDoItemButton.classList.add("header-button");
     newToDoItemButton.textContent = "Create new task";
+    newToDoItemListener();
+
+    function newToDoItemListener() {
+      newToDoItemButton.addEventListener("click", () => {
+        const mainArea = document.querySelector(".main-area");
+        const sidebarArea = document.querySelector(".sidebar-area");
+        if (mainArea.classList.contains("sidebar-open")) {
+          mainArea.classList.remove("sidebar-open");
+          mainArea.classList.add("sidebar-closed");
+          sidebarArea.classList.remove("sidebar-open");
+          sidebarArea.classList.add("sidebar-closed");
+        } else {
+          mainArea.classList.add("sidebar-open");
+          mainArea.classList.remove("sidebar-closed");
+          sidebarArea.classList.add("sidebar-open");
+          sidebarArea.classList.remove("sidebar-closed");
+        } 
+      })
+    }    
     
     content.appendChild(header);
     header.appendChild(headerButtonGroup);
@@ -45,10 +64,11 @@ export default class Display {
     };
     
     const mainArea = document.querySelector(".main-area");
-    mainArea.classList.add("sidebar-open"); // hard-coded for now
+    mainArea.classList.add("sidebar-closed"); // hard-coded for now
 
     const sidebarArea = document.createElement("div");
     sidebarArea.classList.add("sidebar-area");
+    sidebarArea.classList.add("sidebar-closed");
     mainArea.appendChild(sidebarArea);
 
     const sidebarHeader = document.createElement("div");
@@ -57,10 +77,12 @@ export default class Display {
 
     const sidebarHeaderH1 = document.createElement("h1");
     sidebarHeaderH1.classList.add("sidebar-header-title");
+    sidebarHeaderH1.textContent = "Create task:"
     sidebarHeader.appendChild(sidebarHeaderH1);
 
     const closeSidebarButton = document.createElement("button");
     closeSidebarButton.classList.add("close-sidebar-button");
+    closeSidebarButton.textContent = "X";
     sidebarHeader.appendChild(closeSidebarButton);
 
     const newToDoItemForm = document.createElement("form");

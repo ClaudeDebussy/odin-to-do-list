@@ -61,6 +61,7 @@ body {
 }
 
 .main-area {
+  background-color: var(--todo-light-pink);
 }
 
 .main-area.sidebar-open {
@@ -68,6 +69,14 @@ body {
   grid-template-areas: 
   "tasks-area sidebar-area";
   grid-template-columns: 2fr 1fr;
+  min-height: calc(100vh - 5rem);
+}
+
+.main-area.sidebar-closed {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas: 
+  "tasks-area";
   min-height: calc(100vh - 5rem);
 }
 
@@ -82,6 +91,10 @@ body {
 
   padding: 1rem;
   min-height: calc(100vh - 5rem);
+}
+
+.sidebar-area.sidebar-closed {
+  display: none;
 }
 
 .sidebar-area .sidebar-header {
