@@ -49,13 +49,13 @@ button {
   padding: .75rem 3rem;
 }
 
-.header-button-group button:hover {
+button:hover {
   background-color: var(--todo-blue);
   color: var(--todo-light-pink);
   cursor: pointer;
 }
 
-.header-button-group button:active {
+button:active {
   background-color: var(--todo-black);
   color: var(--todo-light-pink);
 }
@@ -111,17 +111,6 @@ button {
   border: none;
   background-color: var(--todo-dark-pink);
   border-radius: 1rem;
-}
-
-.sidebar-area .sidebar-header .close-sidebar-button:hover {
-  background-color: var(--todo-blue);
-  color: var(--todo-light-pink);
-  cursor: pointer;
-}
-
-.sidebar-area .sidebar-header .close-sidebar-button:active {
-  background-color: var(--todo-black);
-  color: var(--todo-light-pink);
 }
 
 .sidebar-area .form-row {
