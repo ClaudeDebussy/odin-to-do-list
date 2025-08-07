@@ -1,4 +1,4 @@
-export default class ToDoItem {
+export default class task {
   #_title;
   #_description;
   #_dueDate;

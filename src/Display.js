@@ -29,13 +29,13 @@ export default class Display {
     const headerButtonGroup = document.createElement("div");
     headerButtonGroup.classList.add("header-button-group");
 
-    const newToDoItemButton = document.createElement("button");
-    newToDoItemButton.classList.add("header-button");
-    newToDoItemButton.textContent = "Create new task";
+    const newTaskButton = document.createElement("button");
+    newTaskButton.classList.add("header-button");
+    newTaskButton.textContent = "Create new task";
     
     content.appendChild(header);
     header.appendChild(headerButtonGroup);
-    headerButtonGroup.appendChild(newToDoItemButton);    
+    headerButtonGroup.appendChild(newTaskButton);    
   }   
 
   createSidebar() {      
@@ -67,9 +67,9 @@ export default class Display {
     closeSidebarButton.textContent = "X";
     sidebarHeader.appendChild(closeSidebarButton);
 
-    const newToDoItemForm = document.createElement("form");
-    newToDoItemForm.classList.add("new-to-do-item-form");
-    sidebarArea.appendChild(newToDoItemForm);
+    const newTaskForm = document.createElement("form");
+    newTaskForm.classList.add("new-task-form");
+    sidebarArea.appendChild(newTaskForm);
 
     
     const formRowTitle = createFormRow();
@@ -77,14 +77,14 @@ export default class Display {
     const formRowDueDate = createFormRow();
     const formRowPriority = createFormRow();
     const formRowProject = createFormRow();
-    const formRowSaveNewToDo = createFormRow();
+    const formRowSaveNewTask = createFormRow();
 
     sidebarArea.appendChild(formRowTitle);
     sidebarArea.appendChild(formRowDescription);
     sidebarArea.appendChild(formRowDueDate);
     sidebarArea.appendChild(formRowPriority);
     sidebarArea.appendChild(formRowProject);
-    sidebarArea.appendChild(formRowSaveNewToDo);
+    sidebarArea.appendChild(formRowSaveNewTask);
 
     const formTitleLabel = document.createElement("label");
     formTitleLabel.setAttribute("for","title");
@@ -164,16 +164,16 @@ export default class Display {
     formRowProject.appendChild(formProjectSelect);
 
 
-    const saveNewToDoItemButton = document.createElement("button");
-    saveNewToDoItemButton.classList.add("save-new-to-do-button");
-    saveNewToDoItemButton.textContent = "Save task";
-    formRowSaveNewToDo.appendChild(saveNewToDoItemButton);
+    const saveNewTaskButton = document.createElement("button");
+    saveNewTaskButton.classList.add("save-new-task-button");
+    saveNewTaskButton.textContent = "Save task";
+    formRowSaveNewTask.appendChild(saveNewTaskButton);
     
   }  
 
   createListeners() {
-    const newToDoItemButton = document.querySelector(".header-button");
-    newToDoItemButton.addEventListener("click", () => this.toggleSidebar());  
+    const newTaskButton = document.querySelector(".header-button");
+    newTaskButton.addEventListener("click", () => this.toggleSidebar());  
     
     const closeSideBarButton = document.querySelector(".close-sidebar-button");
     closeSideBarButton.addEventListener("click", () => this.toggleSidebar());   
@@ -182,27 +182,27 @@ export default class Display {
   toggleSidebar() {
     const mainArea = document.querySelector(".main-area");
     const sidebarArea = document.querySelector(".sidebar-area");
-    const newToDoItemButton = document.querySelector(".header-button");
+    const newTaskButton = document.querySelector(".header-button");
     
     if (mainArea.classList.contains("sidebar-open")) {
       mainArea.classList.remove("sidebar-open");
       mainArea.classList.add("sidebar-closed");
       sidebarArea.classList.remove("sidebar-open");
       sidebarArea.classList.add("sidebar-closed");
-      showCreateNewToDoButton();
+      showCreateNewTaskButton();
     } else {
       mainArea.classList.add("sidebar-open");
       mainArea.classList.remove("sidebar-closed");
       sidebarArea.classList.add("sidebar-open");
       sidebarArea.classList.remove("sidebar-closed");
-      hideCreateNewToDoButton();
+      hideCreateNewTaskButton();
     } 
 
-    function hideCreateNewToDoButton() {      
-      newToDoItemButton.classList.add("hide"); 
+    function hideCreateNewTaskButton() {      
+      newTaskButton.classList.add("hide"); 
     }
-    function showCreateNewToDoButton() {
-      newToDoItemButton.classList.remove("hide");
+    function showCreateNewTaskButton() {
+      newTaskButton.classList.remove("hide");
     }
 
   }    
