@@ -1,3 +1,5 @@
+import TaskFormHandler from "./TaskFormHandler";
+
 export default class Display {
 
   createBodyStructure() {
@@ -179,8 +181,12 @@ export default class Display {
     const closeSideBarButton = document.querySelector(".close-sidebar-button");
     closeSideBarButton.addEventListener("click", () => this.toggleSidebar()); 
     
-    const saveNewTaskButton = document.querySelector(".save-new-task-button"); 
-    saveNewTaskButton.addEventListener("click", () => this.collectNewTaskFormData());
+    const saveNewTaskButton = document.querySelector(".save-new-task-button");
+    
+    saveNewTaskButton.addEventListener("click", () => {
+      const formClass = saveNewTaskButton.parentElement.parentElement.className;
+      this.launchTaskFormHandler(formClass);
+    });
   } 
 
   toggleSidebar() {
@@ -208,14 +214,10 @@ export default class Display {
     function showCreateNewTaskButton() {
       newTaskButton.classList.remove("hide");
     }
-  }    
-
-  collectNewTaskFormData() {
-    const form = document.querySelector(".new-task-form");
-    console.log(form);
-    const formData = new FormData(form);
-    const formDataObject = Object.fromEntries(formData.entries());
-    console.log(formDataObject);
-    return formData;
+  }   
+  
+  launchTaskFormHandler(formClassName) {
+    const taskFormHandler = new TaskFormHandler;
+    taskFormHandler.collectNewTaskFormData(formClassName);
   }
 }
