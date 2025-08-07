@@ -15,7 +15,9 @@ export default class Display {
     tasksArea.classList.add("tasks-area");
     mainArea.appendChild(tasksArea);
 
-    this.createSidebar();
+    this.createSidebar();    
+    this.createNewToDoItemButtonListener();  
+    this.createCloseSidebarButtonListener();  
   }
   
   createHeader() {
@@ -30,33 +32,13 @@ export default class Display {
     const newToDoItemButton = document.createElement("button");
     newToDoItemButton.classList.add("header-button");
     newToDoItemButton.textContent = "Create new task";
-    newToDoItemListener();
-
-    function newToDoItemListener() {
-      newToDoItemButton.addEventListener("click", () => {
-        const mainArea = document.querySelector(".main-area");
-        const sidebarArea = document.querySelector(".sidebar-area");
-        if (mainArea.classList.contains("sidebar-open")) {
-          mainArea.classList.remove("sidebar-open");
-          mainArea.classList.add("sidebar-closed");
-          sidebarArea.classList.remove("sidebar-open");
-          sidebarArea.classList.add("sidebar-closed");
-        } else {
-          mainArea.classList.add("sidebar-open");
-          mainArea.classList.remove("sidebar-closed");
-          sidebarArea.classList.add("sidebar-open");
-          sidebarArea.classList.remove("sidebar-closed");
-        } 
-      })
-    }    
     
     content.appendChild(header);
     header.appendChild(headerButtonGroup);
-    headerButtonGroup.appendChild(newToDoItemButton);
-  }  
+    headerButtonGroup.appendChild(newToDoItemButton);    
+  }   
 
-  createSidebar() {    
-    
+  createSidebar() {      
     function createFormRow() {
       const formRow = document.createElement("div");
       formRow.classList.add("form-row");
@@ -95,12 +77,14 @@ export default class Display {
     const formRowDueDate = createFormRow();
     const formRowPriority = createFormRow();
     const formRowProject = createFormRow();
+    const formRowSaveNewToDo = createFormRow();
 
     sidebarArea.appendChild(formRowTitle);
     sidebarArea.appendChild(formRowDescription);
     sidebarArea.appendChild(formRowDueDate);
     sidebarArea.appendChild(formRowPriority);
     sidebarArea.appendChild(formRowProject);
+    sidebarArea.appendChild(formRowSaveNewToDo);
 
     const formTitleLabel = document.createElement("label");
     formTitleLabel.setAttribute("for","title");
@@ -162,7 +146,7 @@ export default class Display {
       };      
       formPrioritySelect.appendChild(option);
     }
-    formRowPriority.appendChild(formPrioritySelect);
+    formRowPriority.appendChild(formPrioritySelect);   
 
 
     const formProjectLabel = document.createElement("label");
@@ -178,5 +162,50 @@ export default class Display {
     forProjectSelectOption.textContent = "none"
     formProjectSelect.appendChild(forProjectSelectOption);
     formRowProject.appendChild(formProjectSelect);
+
+
+    const saveNewToDoItemButton = document.createElement("button");
+    saveNewToDoItemButton.classList.add("save-new-to-do-button");
+    saveNewToDoItemButton.textContent = "Save task";
+    formRowSaveNewToDo.appendChild(saveNewToDoItemButton);
+    
+  }  
+
+  createNewToDoItemButtonListener() {
+    const newToDoItemButton = document.querySelector(".header-button");
+    newToDoItemButton.addEventListener("click", this.toggleSidebar);    
+  }  
+
+  createCloseSidebarButtonListener() {
+    const closeSideBarButton = document.querySelector(".close-sidebar-button");
+    closeSideBarButton.addEventListener("click", this.toggleSidebar);
   }
+
+  toggleSidebar() {
+    const mainArea = document.querySelector(".main-area");
+    const sidebarArea = document.querySelector(".sidebar-area");
+    const newToDoItemButton = document.querySelector(".header-button");
+    
+    if (mainArea.classList.contains("sidebar-open")) {
+      mainArea.classList.remove("sidebar-open");
+      mainArea.classList.add("sidebar-closed");
+      sidebarArea.classList.remove("sidebar-open");
+      sidebarArea.classList.add("sidebar-closed");
+      showCreateNewToDoButton();
+    } else {
+      mainArea.classList.add("sidebar-open");
+      mainArea.classList.remove("sidebar-closed");
+      sidebarArea.classList.add("sidebar-open");
+      sidebarArea.classList.remove("sidebar-closed");
+      hideCreateNewToDoButton();
+    } 
+
+    function hideCreateNewToDoButton() {      
+      newToDoItemButton.classList.add("hide"); 
+    }
+    function showCreateNewToDoButton() {
+      newToDoItemButton.classList.remove("hide");
+    }
+
+  }    
 }
