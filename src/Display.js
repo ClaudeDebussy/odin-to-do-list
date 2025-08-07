@@ -79,12 +79,12 @@ export default class Display {
     const formRowProject = createFormRow();
     const formRowSaveNewTask = createFormRow();
 
-    sidebarArea.appendChild(formRowTitle);
-    sidebarArea.appendChild(formRowDescription);
-    sidebarArea.appendChild(formRowDueDate);
-    sidebarArea.appendChild(formRowPriority);
-    sidebarArea.appendChild(formRowProject);
-    sidebarArea.appendChild(formRowSaveNewTask);
+    newTaskForm.appendChild(formRowTitle);
+    newTaskForm.appendChild(formRowDescription);
+    newTaskForm.appendChild(formRowDueDate);
+    newTaskForm.appendChild(formRowPriority);
+    newTaskForm.appendChild(formRowProject);
+    newTaskForm.appendChild(formRowSaveNewTask);
 
     const formTitleLabel = document.createElement("label");
     formTitleLabel.setAttribute("for","title");
@@ -151,7 +151,7 @@ export default class Display {
 
     const formProjectLabel = document.createElement("label");
     formProjectLabel.setAttribute("for", "project");
-    formProjectLabel.textContent = "Priority";
+    formProjectLabel.textContent = "Project";
     formRowProject.appendChild(formProjectLabel);
 
     const formProjectSelect = document.createElement("select")
@@ -166,6 +166,7 @@ export default class Display {
 
     const saveNewTaskButton = document.createElement("button");
     saveNewTaskButton.classList.add("save-new-task-button");
+    saveNewTaskButton.setAttribute("type", "button");
     saveNewTaskButton.textContent = "Save task";
     formRowSaveNewTask.appendChild(saveNewTaskButton);
     
@@ -176,7 +177,10 @@ export default class Display {
     newTaskButton.addEventListener("click", () => this.toggleSidebar());  
     
     const closeSideBarButton = document.querySelector(".close-sidebar-button");
-    closeSideBarButton.addEventListener("click", () => this.toggleSidebar());   
+    closeSideBarButton.addEventListener("click", () => this.toggleSidebar()); 
+    
+    const saveNewTaskButton = document.querySelector(".save-new-task-button"); 
+    saveNewTaskButton.addEventListener("click", () => this.collectNewTaskFormData());
   } 
 
   toggleSidebar() {
@@ -204,6 +208,14 @@ export default class Display {
     function showCreateNewTaskButton() {
       newTaskButton.classList.remove("hide");
     }
-
   }    
+
+  collectNewTaskFormData() {
+    const form = document.querySelector(".new-task-form");
+    console.log(form);
+    const formData = new FormData(form);
+    const formDataObject = Object.fromEntries(formData.entries());
+    console.log(formDataObject);
+    return formData;
+  }
 }
