@@ -15,9 +15,9 @@ export default class Display {
     tasksArea.classList.add("tasks-area");
     mainArea.appendChild(tasksArea);
 
-    this.createSidebar();    
-    this.createNewToDoItemButtonListener();  
-    this.createCloseSidebarButtonListener();  
+    this.createSidebar();
+
+    this.createListeners();
   }
   
   createHeader() {
@@ -171,15 +171,13 @@ export default class Display {
     
   }  
 
-  createNewToDoItemButtonListener() {
+  createListeners() {
     const newToDoItemButton = document.querySelector(".header-button");
-    newToDoItemButton.addEventListener("click", this.toggleSidebar);    
-  }  
-
-  createCloseSidebarButtonListener() {
+    newToDoItemButton.addEventListener("click", () => this.toggleSidebar());  
+    
     const closeSideBarButton = document.querySelector(".close-sidebar-button");
-    closeSideBarButton.addEventListener("click", this.toggleSidebar);
-  }
+    closeSideBarButton.addEventListener("click", () => this.toggleSidebar());   
+  } 
 
   toggleSidebar() {
     const mainArea = document.querySelector(".main-area");
