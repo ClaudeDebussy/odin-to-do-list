@@ -187,6 +187,7 @@ export default class Display {
       const formClass = saveNewTaskButton.form.className;
       const taskFormHandler = new TaskFormHandler;
       taskFormHandler.launchTaskFormHandler(formClass);
+      this.toggleSidebar();
     });
   } 
 
