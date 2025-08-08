@@ -7,7 +7,7 @@ export default class Task {
   #_project;
   #_uuid;
 
-  constructor({title, description = null, dueDate = null, priority = 3, project = null}) {
+  constructor({title, description = null, dueDate = null, priority = 3, project = "none"}) {
     this.#_title = title;
     this.#_description = description;
     this.#_dueDate = dueDate;

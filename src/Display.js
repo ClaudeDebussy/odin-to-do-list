@@ -1,3 +1,4 @@
+import Project from "./Project";
 import TaskFormHandler from "./TaskFormHandler";
 
 export default class Display {
@@ -159,11 +160,16 @@ export default class Display {
     const formProjectSelect = document.createElement("select")
     formProjectSelect.setAttribute("name", "project");
     formProjectSelect.setAttribute("id", "project");
-    const forProjectSelectOption = document.createElement("option");
-    forProjectSelectOption.setAttribute("value", "null"); // hard-coded
-    forProjectSelectOption.textContent = "none"
-    formProjectSelect.appendChild(forProjectSelectOption);
-    formRowProject.appendChild(formProjectSelect);
+    
+    const projects = Project.projects;
+    projects.forEach(project => {
+      const formProjectSelectOption = document.createElement("option");
+      formProjectSelectOption.setAttribute("value", `${project}`); // hard-coded
+      formProjectSelectOption.textContent = `${project}`;
+      formProjectSelect.appendChild(formProjectSelectOption);
+      formRowProject.appendChild(formProjectSelect);
+    });
+    
 
 
     const saveNewTaskButton = document.createElement("button");
