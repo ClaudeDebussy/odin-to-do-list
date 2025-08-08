@@ -192,14 +192,13 @@ export default class Display {
 
     const formNewProjectNameInput = document.createElement("input");
     formNewProjectNameInput.setAttribute("type", "text");
-    formNewProjectNameInput.setAttribute("name", "new-project-name");
+    formNewProjectNameInput.setAttribute("name", "newProjectName");
     formNewProjectNameInput.setAttribute("id", "new-project-name");
     formRowNewProjectName.appendChild(formNewProjectNameInput);
 
     
     formProjectSelect.addEventListener("change", () => {
       const selectedValue = formProjectSelect.value;
-      console.log(selectedValue);
       if (selectedValue === "create-new-project") {
         formRowNewProjectName.classList.remove("hide");
       } else if (selectedValue != "create-new-project" && !formRowNewProjectName.classList.contains("hide")) {

@@ -9,6 +9,7 @@ export default class Project {
   static createProject(projectName) {
     if (!this.#_projects.includes(projectName)) {
     this.#_projects.push(projectName);
+    return this.Project;
     } else {
       console.log("Project name aready exists.");
     }
