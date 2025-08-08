@@ -80,6 +80,7 @@ export default class Display {
     const formRowDueDate = createFormRow();
     const formRowPriority = createFormRow();
     const formRowProject = createFormRow();
+    const formRowNewProjectName = createFormRow();
     const formRowSaveNewTask = createFormRow();
 
     newTaskForm.appendChild(formRowTitle);
@@ -87,6 +88,7 @@ export default class Display {
     newTaskForm.appendChild(formRowDueDate);
     newTaskForm.appendChild(formRowPriority);
     newTaskForm.appendChild(formRowProject);
+    newTaskForm.appendChild(formRowNewProjectName);
     newTaskForm.appendChild(formRowSaveNewTask);
 
     const formTitleLabel = document.createElement("label");
@@ -160,17 +162,50 @@ export default class Display {
     const formProjectSelect = document.createElement("select")
     formProjectSelect.setAttribute("name", "project");
     formProjectSelect.setAttribute("id", "project");
+    formRowProject.appendChild(formProjectSelect);
+
+    const formProjectSelectNoneOption = document.createElement("option");
+    formProjectSelectNoneOption.setAttribute("value", "none");
+    formProjectSelectNoneOption.textContent = "none";
+    formProjectSelect.appendChild(formProjectSelectNoneOption);
+
+    const formProjectSelectCreateNewProjectOption = document.createElement("option");
+    formProjectSelectCreateNewProjectOption.setAttribute("value", "create-new-project");
+    formProjectSelectCreateNewProjectOption.classList.add("create-new-project");
+    formProjectSelectCreateNewProjectOption.textContent = "Create new project";
+    formProjectSelect.appendChild(formProjectSelectCreateNewProjectOption);
     
     const projects = Project.projects;
     projects.forEach(project => {
       const formProjectSelectOption = document.createElement("option");
-      formProjectSelectOption.setAttribute("value", `${project}`); // hard-coded
+      formProjectSelectOption.setAttribute("value", `${project}`);
       formProjectSelectOption.textContent = `${project}`;
       formProjectSelect.appendChild(formProjectSelectOption);
-      formRowProject.appendChild(formProjectSelect);
     });
-    
 
+
+    formRowNewProjectName.classList.add("hide");
+    const formNewProjectNameLabel = document.createElement("label");
+    formNewProjectNameLabel.setAttribute("for", "new-project-name");
+    formNewProjectNameLabel.textContent = "New project name";
+    formRowNewProjectName.appendChild(formNewProjectNameLabel);
+
+    const formNewProjectNameInput = document.createElement("input");
+    formNewProjectNameInput.setAttribute("type", "text");
+    formNewProjectNameInput.setAttribute("name", "new-project-name");
+    formNewProjectNameInput.setAttribute("id", "new-project-name");
+    formRowNewProjectName.appendChild(formNewProjectNameInput);
+
+    
+    formProjectSelect.addEventListener("change", () => {
+      const selectedValue = formProjectSelect.value;
+      console.log(selectedValue);
+      if (selectedValue === "create-new-project") {
+        formRowNewProjectName.classList.remove("hide");
+      } else if (selectedValue != "create-new-project" && !formRowNewProjectName.classList.contains("hide")) {
+        formRowNewProjectName.classList.add("hide");
+      }
+    })
 
     const saveNewTaskButton = document.createElement("button");
     saveNewTaskButton.classList.add("save-new-task-button");

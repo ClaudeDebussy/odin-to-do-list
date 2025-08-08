@@ -13,8 +13,13 @@ export default class Task {
     this.#_dueDate = dueDate;
     this.#_priority = priority;
     this.#_status = "open";
-    this.#_project = project;
     this.#_uuid = crypto.randomUUID();
+
+    if (project === "none") {
+      this.#_project = null; 
+    } else {
+      this.#_project = project;
+    }
   }
 
   get title() {

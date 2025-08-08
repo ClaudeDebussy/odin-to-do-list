@@ -1,6 +1,6 @@
 export default class Project {
   #_title;
-  static #_projects = ["none", "Project 1", "Project 2"]; //hard-coded;
+  static #_projects = ["Project 1", "Project 2"]; //hard-coded;
 
   constructor(title) {
     this.#_title = title;
