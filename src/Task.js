@@ -1,18 +1,20 @@
-export default class task {
+export default class Task {
   #_title;
   #_description;
   #_dueDate;
   #_priority;
   #_status;
   #_project;
+  #_uuid;
 
-  constructor(title, description = null, dueDate = null, priority = 3, project = null) {
+  constructor({title, description = null, dueDate = null, priority = 3, project = null}) {
     this.#_title = title;
     this.#_description = description;
     this.#_dueDate = dueDate;
     this.#_priority = priority;
     this.#_status = "open";
     this.#_project = project;
+    this.#_uuid = crypto.randomUUID();
   }
 
   get title() {
@@ -34,8 +36,13 @@ export default class task {
   get status() {
     return this.#_status;
   }
+  
   get project() {
     return this.#_project;
+  }
+
+  get uuid() {
+    return this.#_uuid;
   }
 
   set title(title) {

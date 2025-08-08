@@ -184,8 +184,9 @@ export default class Display {
     const saveNewTaskButton = document.querySelector(".save-new-task-button");
     
     saveNewTaskButton.addEventListener("click", () => {
-      const formClass = saveNewTaskButton.parentElement.parentElement.className;
-      this.launchTaskFormHandler(formClass);
+      const formClass = saveNewTaskButton.form.className;
+      const taskFormHandler = new TaskFormHandler;
+      taskFormHandler.launchTaskFormHandler(formClass);
     });
   } 
 
@@ -214,10 +215,5 @@ export default class Display {
     function showCreateNewTaskButton() {
       newTaskButton.classList.remove("hide");
     }
-  }   
-  
-  launchTaskFormHandler(formClassName) {
-    const taskFormHandler = new TaskFormHandler;
-    taskFormHandler.collectNewTaskFormData(formClassName);
-  }
+  }     
 }
