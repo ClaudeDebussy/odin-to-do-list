@@ -1,3 +1,4 @@
+import Display from "./Display";
 import Project from "./Project";
 import Task from "./Task";
 
@@ -30,7 +31,8 @@ export default class TaskFormHandler {
   }
 
   createTaskObject() {
-    const taskObject = new Task(this.formDataObject); 
+    const taskObject = new Task(this.formDataObject);
+    Task.addTaskToTaskList(taskObject);
     console.log(taskObject);
   }  
 }

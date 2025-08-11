@@ -1,9 +1,10 @@
 import Project from "./Project";
+import Task from "./Task";
 import TaskFormHandler from "./TaskFormHandler";
 
 export default class Display {
 
-  createBodyStructure() {
+  buildPage() {
     const content = document.createElement("div");
     content.classList.add("content");
     document.body.appendChild(content);
@@ -19,6 +20,8 @@ export default class Display {
     mainArea.appendChild(tasksArea);
 
     this.createSidebar();
+
+    this.populateTasks();
 
     this.createListeners();
   }
@@ -49,7 +52,7 @@ export default class Display {
     };
     
     const mainArea = document.querySelector(".main-area");
-    mainArea.classList.add("sidebar-closed"); // hard-coded for now
+    mainArea.classList.add("sidebar-closed");
 
     const sidebarArea = document.createElement("div");
     sidebarArea.classList.add("sidebar-area");
@@ -227,7 +230,9 @@ export default class Display {
       const formClass = saveNewTaskButton.form.className;
       const taskFormHandler = new TaskFormHandler;
       taskFormHandler.launchTaskFormHandler(formClass);
-      this.toggleSidebar();
+      this.clearPage()
+      this.buildPage();
+      // this.toggleSidebar();
     });
   } 
 
@@ -256,5 +261,49 @@ export default class Display {
     function showCreateNewTaskButton() {
       newTaskButton.classList.remove("hide");
     }
-  }     
+  }    
+  
+  populateTasks() {    
+    const taskList = Task.taskList;
+    for (let i = 0; i < taskList.length; i++) {
+      const task = taskList[i];
+      this.createTaskDiv(task);
+    }
+  }
+
+  createTaskDiv(task) {    
+    const taskDiv = document.createElement("div");
+    taskDiv.classList.add("task-div");
+
+    const taskTitle = document.createElement("h1");
+    taskTitle.classList.add("task-title");
+    const taskDescription = document.createElement("p");
+    taskDescription.classList.add("task-description");
+    const taskDueDate = document.createElement("p");
+    taskDueDate.classList.add("task-due-date");
+    const taskPriority = document.createElement("p");
+    taskPriority.classList.add("task-priority");
+    const taskStatus = document.createElement("p");
+    taskStatus.classList.add("task-status");
+    const taskProject = document.createElement("p");
+    taskProject.classList.add("task-project");
+
+    taskTitle.textContent = task.title;
+    taskDescription.textContent = task.description;
+    taskDueDate.textContent = task.dueDate;
+    taskPriority.textContent = task.priority;
+    taskStatus.textContent = task.status;
+    taskProject.textContent = task.project;
+    
+    const tasksArea = document.querySelector(".tasks-area");
+    const elementsToAppend = [taskDiv, taskTitle, taskDescription, 
+      taskDueDate, taskPriority, taskStatus, taskProject];
+    elementsToAppend.forEach(element => {
+      tasksArea.appendChild(element);
+    });
+  }
+
+  clearPage() {
+    document.body.innerHTML = "";
+  }
 }

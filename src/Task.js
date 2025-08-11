@@ -1,6 +1,8 @@
 import Project from "./Project";
 
 export default class Task {
+  static #_taskList = [];
+  
   #_title;
   #_description;
   #_dueDate;
@@ -19,6 +21,15 @@ export default class Task {
     this.#_uuid = crypto.randomUUID();
   }
 
+  static addTaskToTaskList(task) {
+    this.#_taskList.push(task);
+    console.log(this.#_taskList);
+  }
+
+  static get taskList() {
+    return this.#_taskList;
+  }
+  
   get title() {
     return this.#_title;
   }
@@ -78,4 +89,7 @@ export default class Task {
   set project(project) {
     this.#_project = project;
   }
+
+  
+
 }
