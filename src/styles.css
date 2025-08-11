@@ -162,3 +162,43 @@ button:active {
 .form-row.hide {
   display: none;
 }
+
+.task-div {
+  background-color: var(--todo-white);
+
+  border: 1px solid var(--todo-dark-pink);
+  border-radius: 1rem;
+  
+  margin: 1rem;
+  padding: 1rem;
+
+  color: var(--todo-black)
+}
+
+.task-div .task-title {
+  color: var(--todo-blue)
+}
+
+.task-div .task-due-date {
+  margin-bottom: .5rem;
+}
+
+.task-div .task-description {
+  margin-bottom: .5rem;
+}
+
+.task-div .expand-or-minimize-task-button {
+  color: var(--todo-dark-pink);
+}
+
+.task-div .expand-or-minimize-task-button:hover {
+  color: var(--todo-dark-pink);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.task-div .expand-or-minimize-task-button:active {
+  color: var(--todo-blue);
+  text-decoration: underline;
+  cursor: pointer;
+}

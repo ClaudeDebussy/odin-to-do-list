@@ -224,8 +224,7 @@ export default class Display {
     const closeSideBarButton = document.querySelector(".close-sidebar-button");
     closeSideBarButton.addEventListener("click", () => this.toggleSidebar()); 
     
-    const saveNewTaskButton = document.querySelector(".save-new-task-button");
-    
+    const saveNewTaskButton = document.querySelector(".save-new-task-button");    
     saveNewTaskButton.addEventListener("click", () => {
       const formClass = saveNewTaskButton.form.className;
       const taskFormHandler = new TaskFormHandler;
@@ -233,6 +232,20 @@ export default class Display {
       this.clearPage()
       this.buildPage();
       // this.toggleSidebar();
+    });
+
+    const expandTaskButtons = document.querySelectorAll(".expander");
+    expandTaskButtons.forEach(expander => {
+      expander.addEventListener("click", (event) => {
+      this.expandTask(event.target);
+      })
+    });
+    
+    const minimizeTaskButtons = document.querySelectorAll(".minimizer");
+    minimizeTaskButtons.forEach(minimizer => {
+      minimizer.addEventListener("click", (event) => {
+      this.minimizeTask(event.target);
+      })
     });
   } 
 
@@ -272,34 +285,83 @@ export default class Display {
   }
 
   createTaskDiv(task) {    
+    const tasksArea = document.querySelector(".tasks-area");
     const taskDiv = document.createElement("div");
     taskDiv.classList.add("task-div");
+    tasksArea.appendChild(taskDiv);
 
     const taskTitle = document.createElement("h1");
-    taskTitle.classList.add("task-title");
-    const taskDescription = document.createElement("p");
-    taskDescription.classList.add("task-description");
+    taskTitle.classList.add("task-title");    
     const taskDueDate = document.createElement("p");
     taskDueDate.classList.add("task-due-date");
+    const taskDescription = document.createElement("p");
+    taskDescription.classList.add("task-description");
+    taskDescription.classList.add("hide");
     const taskPriority = document.createElement("p");
     taskPriority.classList.add("task-priority");
+    taskPriority.classList.add("hide");
     const taskStatus = document.createElement("p");
     taskStatus.classList.add("task-status");
+    taskStatus.classList.add("hide");
     const taskProject = document.createElement("p");
     taskProject.classList.add("task-project");
+    taskProject.classList.add("hide");
+    const expandTaskButton = document.createElement("a");
+    expandTaskButton.textContent = "see more";
+    expandTaskButton.classList.add("expand-or-minimize-task-button");
+    expandTaskButton.classList.add("expander");
+    const minimizeTaskButton = document.createElement("a");
+    minimizeTaskButton.textContent = "see less";
+    minimizeTaskButton.classList.add("expand-or-minimize-task-button");
+    minimizeTaskButton.classList.add("minimizer");
+    minimizeTaskButton.classList.add("hide");
 
     taskTitle.textContent = task.title;
+    taskDueDate.textContent = `Due: ${task.dueDate}`;
     taskDescription.textContent = task.description;
-    taskDueDate.textContent = task.dueDate;
-    taskPriority.textContent = task.priority;
+    taskPriority.textContent = `Priority: ${task.priority}`;
     taskStatus.textContent = task.status;
     taskProject.textContent = task.project;
     
-    const tasksArea = document.querySelector(".tasks-area");
-    const elementsToAppend = [taskDiv, taskTitle, taskDescription, 
-      taskDueDate, taskPriority, taskStatus, taskProject];
+    
+    const elementsToAppend = [taskTitle, taskDueDate, taskDescription, taskPriority, taskStatus, taskProject, expandTaskButton, minimizeTaskButton];
     elementsToAppend.forEach(element => {
-      tasksArea.appendChild(element);
+      taskDiv.appendChild(element);
+    });
+  }
+
+  expandTask(target) {
+    const expandTaskButton = target;
+    const taskDiv = expandTaskButton.parentElement;
+    const taskDivElements = taskDiv.childNodes;
+    taskDivElements.forEach(element => {
+      if (element.classList.contains('expander')) {
+        element.classList.add('hide');
+      }      
+      if (element.classList.contains('hide') && !element.classList.contains('expander')) {
+        element.classList.remove('hide');
+      }
+    });
+  }
+
+  minimizeTask(target) {
+    const minimizeTaskButton = target;
+    const taskDiv = minimizeTaskButton.parentElement;
+    const taskDivElements = taskDiv.childNodes;
+    taskDivElements.forEach(element => {
+      if (element.classList.contains('minimizer')) {
+        element.classList.add('hide');
+      }
+      if (!element.classList.contains('hide')) {
+        if(element.classList.contains('task-description') ||
+          element.classList.contains('task-priority') ||
+          element.classList.contains('task-status') ||
+          element.classList.contains('task-project'))
+        element.classList.add('hide');
+      }
+      if (element.classList.contains("expander")) {
+        element.classList.remove("hide");
+      }
     });
   }
 
