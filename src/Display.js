@@ -244,9 +244,18 @@ export default class Display {
     const minimizeTaskButtons = document.querySelectorAll(".minimizer");
     minimizeTaskButtons.forEach(minimizer => {
       minimizer.addEventListener("click", (event) => {
-      this.minimizeTask(event.target);
+        this.minimizeTask(event.target);
       })
     });
+
+    const removeTaskButtons = document.querySelectorAll(".remove-task-button");
+    removeTaskButtons.forEach(button => {
+      button.addEventListener("click", (event) => {
+        this.removeTask(event.target);
+        this.clearPage()
+        this.buildPage();
+      })
+    })
   } 
 
   toggleSidebar() {
@@ -280,7 +289,7 @@ export default class Display {
     const taskList = Task.taskList;
     for (let i = 0; i < taskList.length; i++) {
       const task = taskList[i];
-      this.createTaskDiv(task);
+      this.createTaskDiv(task);      
     }
   }
 
@@ -288,33 +297,45 @@ export default class Display {
     const tasksArea = document.querySelector(".tasks-area");
     const taskDiv = document.createElement("div");
     taskDiv.classList.add("task-div");
+    taskDiv.dataset.uuid = task.uuid;
     tasksArea.appendChild(taskDiv);
 
     const taskTitle = document.createElement("h1");
-    taskTitle.classList.add("task-title");    
+    taskTitle.classList.add("task-title");  
+
     const taskDueDate = document.createElement("p");
     taskDueDate.classList.add("task-due-date");
+
     const taskDescription = document.createElement("p");
     taskDescription.classList.add("task-description");
     taskDescription.classList.add("hide");
+
     const taskPriority = document.createElement("p");
     taskPriority.classList.add("task-priority");
     taskPriority.classList.add("hide");
+
     const taskStatus = document.createElement("p");
     taskStatus.classList.add("task-status");
     taskStatus.classList.add("hide");
+
     const taskProject = document.createElement("p");
     taskProject.classList.add("task-project");
     taskProject.classList.add("hide");
+
     const expandTaskButton = document.createElement("a");
-    expandTaskButton.textContent = "see more";
+    expandTaskButton.textContent = "see more...";
     expandTaskButton.classList.add("expand-or-minimize-task-button");
     expandTaskButton.classList.add("expander");
+
     const minimizeTaskButton = document.createElement("a");
-    minimizeTaskButton.textContent = "see less";
+    minimizeTaskButton.textContent = "see less...";
     minimizeTaskButton.classList.add("expand-or-minimize-task-button");
     minimizeTaskButton.classList.add("minimizer");
     minimizeTaskButton.classList.add("hide");
+
+    const removeTaskButton = document.createElement("a");
+    removeTaskButton.textContent = "remove task";
+    removeTaskButton.classList.add("remove-task-button");
 
     taskTitle.textContent = task.title;
     taskDueDate.textContent = `Due: ${task.dueDate}`;
@@ -324,7 +345,7 @@ export default class Display {
     taskProject.textContent = task.project;
     
     
-    const elementsToAppend = [taskTitle, taskDueDate, taskDescription, taskPriority, taskStatus, taskProject, expandTaskButton, minimizeTaskButton];
+    const elementsToAppend = [taskTitle, taskDueDate, taskDescription, taskPriority, taskStatus, taskProject, expandTaskButton, minimizeTaskButton, removeTaskButton];
     elementsToAppend.forEach(element => {
       taskDiv.appendChild(element);
     });
@@ -367,5 +388,14 @@ export default class Display {
 
   clearPage() {
     document.body.innerHTML = "";
+  }
+
+  removeTask(target) {
+    const removeTaskButton = target;
+    const taskDiv = removeTaskButton.parentElement;
+    const uuid = taskDiv.dataset.uuid;    
+    const taskToDelete = Task.getTaskByUUID(uuid);
+    console.log(taskToDelete);
+    Task.removeTask(taskToDelete)
   }
 }

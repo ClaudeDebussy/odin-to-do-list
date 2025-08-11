@@ -202,3 +202,21 @@ button:active {
   text-decoration: underline;
   cursor: pointer;
 }
+
+.task-div .remove-task-button {
+  color: var(--todo-dark-pink);
+  display: block;
+  float: right;
+}
+
+.task-div .remove-task-button:hover {
+  color: var(--todo-dark-pink);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.task-div .remove-task-button:active {
+  color: var(--todo-blue);
+  text-decoration: underline;
+  cursor: pointer;
+}

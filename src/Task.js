@@ -48,6 +48,23 @@ export default class Task {
     return this.#_taskList;
   }
   
+  static getTaskByUUID(uuid) {
+    const tasks = this.taskList;
+    for (let i = 0; i < tasks.length; i++) {
+      if (tasks[i].uuid === uuid) {
+        return tasks[i];
+      }
+    }
+  };
+
+  static removeTask(taskToDelete) {    
+    const index = this.#_taskList.indexOf(taskToDelete);        
+    if (index > -1) {
+      this.#_taskList.splice(index, 1);
+    }    
+    console.log(this.#_taskList);
+  };  
+
   get title() {
     return this.#_title;
   }
