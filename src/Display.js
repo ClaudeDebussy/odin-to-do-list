@@ -10,6 +10,7 @@ export default class Display {
     document.body.appendChild(content);
 
     this.createHeader();
+    this.createProjectFilter();
 
     const mainArea = document.createElement("div");
     mainArea.classList.add("main-area");
@@ -43,6 +44,22 @@ export default class Display {
     header.appendChild(headerButtonGroup);
     headerButtonGroup.appendChild(newTaskButton);    
   }   
+
+  createProjectFilter() {
+    const content = document.querySelector(".content");
+
+    const projectFilterDiv = document.createElement("div");
+    projectFilterDiv.classList.add("project-filter-div");
+    content.appendChild(projectFilterDiv);
+
+    const projects = Project.projects;
+    projects.forEach(project => {
+      const projectTag = document.createElement("div");
+      projectTag.classList.add("project-tag");
+      projectTag.textContent = project;
+      projectFilterDiv.appendChild(projectTag);
+    });
+  }
 
   createSidebar() {      
     function createFormRow() {
