@@ -10,7 +10,7 @@ export default class Display {
     document.body.appendChild(content);
 
     this.createHeader();
-    this.createProjectFilter();
+    this.createProjectFilterArea();
 
     const mainArea = document.createElement("div");
     mainArea.classList.add("main-area");
@@ -45,12 +45,19 @@ export default class Display {
     headerButtonGroup.appendChild(newTaskButton);    
   }   
 
-  createProjectFilter() {
+  createProjectFilterArea() {
     const content = document.querySelector(".content");
 
     const projectFilterDiv = document.createElement("div");
     projectFilterDiv.classList.add("project-filter-div");
     content.appendChild(projectFilterDiv);
+
+    const allProjectsTag = document.createElement("div");
+    allProjectsTag.classList.add("project-tag");
+    allProjectsTag.classList.add("all-projects-tag");
+    allProjectsTag.textContent = "All projects";
+
+    projectFilterDiv.appendChild(allProjectsTag);
 
     const projects = Project.projects;
     projects.forEach(project => {
@@ -58,7 +65,7 @@ export default class Display {
       projectTag.classList.add("project-tag");
       projectTag.textContent = project;
       projectFilterDiv.appendChild(projectTag);
-    });
+    });    
   }
 
   createSidebar() {      
@@ -273,6 +280,18 @@ export default class Display {
         this.buildPage();
       })
     })
+
+    const projectTagButtons = document.querySelectorAll(".project-tag");
+    projectTagButtons.forEach(tag => {
+      tag.addEventListener("click", (event) => {
+        this.filterByProject(event.target);
+      })
+    })
+
+    const allProjectsTagButton = document.querySelector(".all-projects-tag");
+    allProjectsTagButton.addEventListener("click", () => {
+      this.showAllProjects();
+    })
   } 
 
   toggleSidebar() {
@@ -414,5 +433,39 @@ export default class Display {
     const taskToDelete = Task.getTaskByUUID(uuid);
     console.log(taskToDelete);
     Task.removeTask(taskToDelete)
+  }
+
+  filterByProject(target) {
+    this.showAllProjects();
+    const project = target.textContent;
+    const tasks = Task.taskList;
+    const tasksToFilterOut = [];
+    tasks.forEach(task => {
+      if (task.project != project) {
+        tasksToFilterOut.push(task);
+      }
+    });
+
+    const taskTitlesToFilterOut = []
+    tasksToFilterOut.forEach(task => {
+      taskTitlesToFilterOut.push(task.title);
+    });
+
+    const taskNodes = document.querySelectorAll(".task-div");
+    taskNodes.forEach(taskNode => {
+      const titleNode = taskNode.querySelector(".task-title").textContent;
+      if (taskTitlesToFilterOut.includes(titleNode)) {
+        taskNode.classList.add("hide");
+      }
+    });
+  }
+
+  showAllProjects() {
+    const taskDivs = document.querySelectorAll(".task-div");
+    taskDivs.forEach(taskDiv => {
+      if (taskDiv.classList.contains("hide")) {
+        taskDiv.classList.remove("hide");
+      }
+    });
   }
 }
