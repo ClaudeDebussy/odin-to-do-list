@@ -1,25 +1,7 @@
 import Project from "./Project";
 
-const hardCodedTask1 = {title: 'Finish to-do list', 
-  description: 'Todo lists are a staple in beginning webdev tutorials, the implementation can be basic. There is, however, a lot of room for improvement and many features that can be added.', 
-  dueDate: '2025-08-06', 
-  priority: '5', 
-  status: 'open', 
-  project: 'Project 1', 
-  uuid: '2d33df62-21ed-4e54-ab80-770c56fb1b38'
-};
-const hardCodedTask2 = {
-  title: 'Complete portfolio update',
-  description: 'Updating a portfolio is essential for showcasing new projects and skills. The update will include recent work and improved designs.',
-  dueDate: '2025-09-15',
-  priority: '3',
-  status: 'open',
-  project: 'Project 2',
-  uuid: '7c9b5f70-4b22-4682-bb80-542f4d4725ad'
-};
-
 export default class Task {
-  static #_taskList = [hardCodedTask1, hardCodedTask2];
+  static #_taskList = [];
   
   #_title;
   #_description;
