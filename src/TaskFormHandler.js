@@ -40,5 +40,5 @@ export default class TaskFormHandler {
 
   createTaskInLocalStorage(task) {    
     localStorage.setItem(task.uuid, JSON.stringify(task.toJSON()));
-  }
+  }  
 }

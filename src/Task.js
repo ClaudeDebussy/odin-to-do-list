@@ -47,6 +47,17 @@ export default class Task {
     console.log(this.#_taskList);
   };  
 
+  static removeTaskInLocalStorage(task) {
+    const uuid = task.uuid;
+    for (let i = 0; i < localStorage.length; i++) {
+      const obj = localStorage.key(i);
+      if (obj === uuid) {
+        localStorage.removeItem(uuid);
+        console.log(`${uuid} removed from local storage`)
+      }
+    }
+  }
+
   toJSON() {
     const { title, description, dueDate, priority, status, project, uuid } = this;
     return { title, description, dueDate, priority, status, project, uuid };

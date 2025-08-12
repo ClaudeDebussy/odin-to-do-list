@@ -432,7 +432,8 @@ export default class Display {
     const uuid = taskDiv.dataset.uuid;    
     const taskToDelete = Task.getTaskByUUID(uuid);
     console.log(taskToDelete);
-    Task.removeTask(taskToDelete)
+    Task.removeTaskInLocalStorage(taskToDelete);
+    Task.removeTask(taskToDelete);
   }
 
   filterByProject(target) {
