@@ -47,6 +47,11 @@ export default class Task {
     console.log(this.#_taskList);
   };  
 
+  toJSON() {
+    const { title, description, dueDate, priority, status, project, uuid } = this;
+    return { title, description, dueDate, priority, status, project, uuid };
+  }
+
   get title() {
     return this.#_title;
   }

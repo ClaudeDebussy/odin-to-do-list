@@ -34,5 +34,11 @@ export default class TaskFormHandler {
     const taskObject = new Task(this.formDataObject);
     Task.addTaskToTaskList(taskObject);
     console.log(taskObject);
+    this.createTaskInLocalStorage(taskObject);
+    
   }  
+
+  createTaskInLocalStorage(task) {    
+    localStorage.setItem(task.uuid, JSON.stringify(task.toJSON()));
+  }
 }
