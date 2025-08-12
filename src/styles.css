@@ -17,8 +17,12 @@ body {
 }
 
 .content {
-  width: 100vw;
-  min-height: 100vh;
+  width: 100%;
+  min-height: 100svh;
+
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  gap: 1rem;
 }
 
 .header {
@@ -62,7 +66,6 @@ button:active {
 
 .project-filter-div {
   display: flex;
-  margin: 1rem;
 }
 
 .project-filter-div .project-tag.all-projects-tag {
@@ -107,12 +110,16 @@ button:active {
   background-color: var(--todo-light-pink);
 }
 
+.main-area.sidebar-open,
+.main-area.sidebar-closed {
+  min-height: 0;
+}
+
 .main-area.sidebar-open {
   display: grid;
   grid-template-areas: 
   "tasks-area sidebar-area";
   grid-template-columns: 2fr 1fr;
-  min-height: calc(100vh - 5rem);
 }
 
 .main-area.sidebar-closed {
@@ -120,7 +127,6 @@ button:active {
   grid-template-columns: 1fr;
   grid-template-areas: 
   "tasks-area";
-  min-height: calc(100vh - 5rem);
 }
 
 .tasks-area {
@@ -133,7 +139,7 @@ button:active {
   background-color: var(--todo-dark-pink);
 
   padding: 1rem;
-  min-height: calc(100vh - 5rem);
+  min-height: 0;
 }
 
 .sidebar-area.sidebar-closed {
