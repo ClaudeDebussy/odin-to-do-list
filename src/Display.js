@@ -322,11 +322,26 @@ export default class Display {
   }    
   
   populateTasks() {    
-    const taskList = Task.taskList;
-    for (let i = 0; i < taskList.length; i++) {
-      const task = taskList[i];
-      this.createTaskDiv(task);      
+    const tasksArea = document.querySelector(".tasks-area")
+    if (!tasksArea) return;
+
+    if(Task.taskList.length === 0) {
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        try {
+          const raw = localStorage.getItem(key);
+          const data = JSON.parse(raw);
+          if (!data || !data.uuid || !data.title) continue;
+
+          const task = Task.fromJSON(data);
+          Task.addTaskToTaskList(task);
+        } catch {
+          //ignore 
+        }
+      }
     }
+    tasksArea.innerHTML = "";
+    Task.taskList.forEach(task => this.createTaskDiv(task));
   }
 
   createTaskDiv(task) {    

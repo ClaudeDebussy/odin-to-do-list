@@ -63,6 +63,19 @@ export default class Task {
     return { title, description, dueDate, priority, status, project, uuid };
   }
 
+  static fromJSON(json) {
+    const t = new Task({
+      title: json.title,
+      description: json.description,
+      dueDate: json.dueDate,
+      priority: json.priority,
+      project: json.project
+    });
+    t.#_status = json.status ?? "open";
+    t.#_uuid = json.uuid;
+    return t;
+  }
+
   get title() {
     return this.#_title;
   }
